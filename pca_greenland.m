@@ -5,18 +5,18 @@
 % OUTPUTS
 % - PC: (Nlat)x(Nlon)x n matrix with principal components. PC(:,:,j) is
 %       the j-th Principal Component.
-% - M:  (Nlat)x(Nlon) matrix with mean of original shapes.
+% - M:  (Nlat)x(Nlon) matrix, with cell-by-cell average of original shapes.
 % - Std: column vector with standard deviations of Principal Components
 
 
 function [PC, M, Std]=pca_greenland()
 
-mask=ncread('Data/Mask.nc', 'Mask');
+mask=ncread('Data/Mask.nc', 'Mask'); % needed to store values for Nlat and Nlon 
 Nlat=size(mask,1);
 Nlon=size(mask,2);
 Ntot=numel(mask);
 
-land=mask<1.5;
+land=mask<1.5; % logical vector storing land positions
 X1=dlmread('Data/Dataset.txt', '');
 w=X1(1,:);
 w=w/sum(w);
@@ -41,10 +41,9 @@ for i=1:size(PC_mid,1)
     PC_mid(i,:)=PC_old(i,:)/sqrt(w(i));
 end
 clear PC_old
-%Coeff=U_old*S;
 
 PC = zeros(Ntot,n-1);
-PC(land,1:n-1)=PC_mid(:,1:n-1);
+PC(land,:)=PC_mid(:,1:n-1); % the last PC is meaningless and corresponds to zero eigenvalue
 PC = reshape(PC, [Nlat, Nlon, n-1]);
 
 M  = zeros(Nlat, Nlon);
@@ -56,6 +55,5 @@ Std = Std(1:end-1);
 % This is in order to adjust the mask by leaving current values
 PC=remask(PC, nan, 0);
 M=remask(M, nan, 0);
-
 
 end
