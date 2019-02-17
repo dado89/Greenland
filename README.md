@@ -1,4 +1,4 @@
-# Greenland: the project in short
+# The project in short
 Implementation of Gaussian Process Emulation to reconstruct the ice morphology (global volume and displacement) of Greenland during the warmer-than-today Last Interglacial, around 120k years ago.
 
 Collaboration with Dr Louise Sime - British Antarctic Surey, Cambridge (UK).
@@ -7,9 +7,10 @@ Collaboration with Dr Louise Sime - British Antarctic Surey, Cambridge (UK).
 # Slides
 Slide on the topic provided: talk given at 2018 Student reserach Conference in Statistics and Probability, Sheffield.
 
+====================================================================================
+
 Also provided a picture (Posterior_Density_3x3.pdf) comparing prior and posterior densities for the data-compatible morphologies.
 
-====================================================================================
 
 # Code
 A detailed description of each piece of code is given within the latter. Here a summary:
