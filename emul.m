@@ -1,11 +1,9 @@
 % Loc = {'NEEM' 'NGRIP' 'GRIP' 'Renland' 'camp' 'DYE3' 'GISP2'};
-
-% This function implements emulation on the data for Greenland orographies.
-% Design_par is the set of design points (8-dimensional), Location is a
-% string for the location where emulator is run, New_par is the set of new
-% points where to emulate. The string retreat specifies whether retreat has
-% to be taken into account during emulation or not.
-
+%
+% This function implements emulation on the dataset of Greenland orographies.
+% The string retreat specifies whether retreat has to be taken into account 
+% during emulation or not.
+%
 % INPUTS:
 % - Design_par: Nx8 matrix. In each row, an 8D input parameter for the
 %               simulator/emulator (coefficients of PCs).
@@ -21,7 +19,7 @@
 %            not be used.
 % - cor_fun: one of the strings 'exp2', 'matern32', 'matern52', 'abs_exp',
 %            to specify which correlation function to use
-
+%
 % OUTPUTS:
 % - M: Nx1 vector of emulated temperature mean for the parameters in
 %      Total_par and the location 'Location'
@@ -29,19 +27,19 @@
 
 function [M, S, s2] = emul(Design_par, y, Total_par, retreat, cor_fun, cor_len, nu)
 
-%% Check that input string retreat is OK
+% Check that input string retreat is OK
 if ~strcmp(retreat, 'with_retreat') && ~strcmp(retreat, 'no_retreat')
     error('Third input must either the string ''with_retreat'' or the string ''no_retreat''.');
 end
 
 New_par = Total_par(:,1:(end-1));
 
-%% Read the data for design points and corresponding response values
+% Read the data for design points and corresponding response values
 
 n=size(Design_par, 1); N=size(New_par,1);
 q=size(Design_par,2)+1;
 
-%% Code for emulator mean and variance
+% Code for emulator mean and variance
 
 d = cor_len*ones(1,q-1);
 A = Corr_fun(Design_par, Design_par, d, 0, cor_fun);    % nxn
@@ -56,7 +54,7 @@ f = y - H*b;                 % nx1
 e = A\f;                     % nx1, e = A^-1 (y - Hb)
 s2 = (f'*e)/(n-q-2);         % scalar
 
-%% Complete computation for emulator by dividing into for loops to save memory
+% Complete computation for emulator by dividing into for loops to save memory
 
 N_block=10000;
 N_loop=ceil(N/N_block);
@@ -70,9 +68,7 @@ for i=1:N_loop
     t(ind1:ind2,:) = Corr_fun(New_par(ind1:ind2,:), Design_par, d, 0, cor_fun);     % Nxn
 end
 
-
 p = h - t*K'; % Nxq, p = h(x) - H'*A^-1*t
-
 
 % Computation of final standard deviation:
 % store v1=diag(t*(A\t')) and v2=diag(p'*(B\p)) through for loop
@@ -103,5 +99,3 @@ if strcmp(retreat, 'with_retreat')
 end
 
 end
-
-
