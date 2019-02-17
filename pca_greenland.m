@@ -18,7 +18,7 @@ Ntot=numel(mask);
 
 land=mask<1.5; % logical vector storing land positions
 X1=dlmread('Data/Dataset.txt', '');
-w=X1(1,:);
+w=X1(1,:); % weights accounting for different Earth-cell areas
 w=w/sum(w);
 X=X1(2:end,:); % rows of X contain the original shapes, as long 1D vectors
 n=size(X,1);  % n is the number of original shapes
@@ -52,7 +52,7 @@ M(land)=Mn;
 Std = diag(S/sqrt(n-1));
 Std = Std(1:end-1);
 
-% This is in order to adjust the mask by leaving current values
+% This is in order to adjust the mask, while leaving current values
 PC=remask(PC, nan, 0);
 M=remask(M, nan, 0);
 
