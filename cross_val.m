@@ -1,14 +1,14 @@
 % This function computes a cross-validation measure of the goodness of the
-% emulation fit carried out with correlation lengths d, on a set of n
-% p-dim inputs and 1-dim outputs.
-% Emulation is carried out on the dataset where one point, in turn, is 
+% emulation fit carried out with correlation lengths d and nugget nu, on a
+% set of n p-dimensional inputs and 1-dim outputs.
+% Emulation is carried out on the dataset where the j-th point, in turn, is 
 % neglected and the prediction for that point is computed. The goodness of 
-% the prediction is measured by evaluating a normal density with the mean 
-% and variance provided by the emulator, on the known output y(j) that had 
-% been neglected while building the emulator.
-% The average of the log of such values is returned as global measure
-% (thus, the higher this value, the better the fit).
-
+% the prediction is measured by 
+% - either evaluating a normal density with mean and variance provided by 
+%   the emulator, on the known output y(j) that was neglected
+% - or by measuring the distance between the predicted mean and the known
+%   left-out value in number of standard deviations.
+%
 % INPUTS
 % - d:  p-dimensional vector with positive entries representing correlation
 %       lengths along the p dimensions.
@@ -21,10 +21,9 @@
 %           returned the pdf of the prediction evaluated at the left-out
 %           point, or the number of standard deviations that the known
 %           value of the left-out point is from the predicted mean.
-
+%
 % OUTPUT
-% - resp: average of logarithm of normal densities, computed as explained
-%         in the description above
+% - resp: nx1 vector, with either density values or number of st.devs.
 
 % NOTE: uncomment the lines starting with '%%%' if just the difference
 % between emulated prediction and real value is to be considered as
@@ -36,7 +35,7 @@ n=size(X_full,1);
 H_full=[ones(n,1), X_full];
 q=size(H_full,2);
 dens=zeros(n,1);
-val=zeros(n,1);
+resp=zeros(n,1);
 
 for j=1:n
     ind=[1:j-1, j+1:n];
@@ -69,8 +68,5 @@ for j=1:n
         error('Last input must be one of ''dens'' or ''std''.');
     end
 end
-
-%resp = sum(log(dens))/n;
-%resp=sqrt(sum(val.^2)/n);
 
 end
