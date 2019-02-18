@@ -64,7 +64,6 @@ t=zeros( N, size(Design_par,1) );
 for i=1:N_loop
     ind1 = (i-1)*N_block + 1;
     ind2 = min(i*N_block, N);
-  %  t(ind1:ind2,:) = Corr_fun(New_par(ind1:ind2,:), Design_par, d, nu, cor_fun);     % Nxn
     t(ind1:ind2,:) = Corr_fun(New_par(ind1:ind2,:), Design_par, d, 0, cor_fun);     % Nxn
 end
 
