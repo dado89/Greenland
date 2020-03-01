@@ -1,6 +1,6 @@
 % Given PCs and coefficients, the function builds N new shapes as linear
 % combinations of the PCs, and then adjusts result according to bedrock.
-% Only r=size(corff,2) PCs are used in the linear combination.
+% Only r=size(coeff,2) PCs are used in the linear combination.
 %
 % INPUTS
 % PC:    (Nlat)x(Nlon)x n matrix with n Principal Components
