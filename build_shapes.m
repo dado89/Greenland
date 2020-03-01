@@ -1,5 +1,5 @@
-% Given PCs and coefficients, the function builds N new shapes as linear
-% combinations of the PCs, and then adjusts result according to bedrock.
+% Given r Principal Components (PCs) and N sets of r coefficients, the function builds 
+% N new shapes as linear combinations of the PCs, and then adjusts result according to bedrock.
 % Only r=size(coeff,2) PCs are used in the linear combination.
 %
 % INPUTS
