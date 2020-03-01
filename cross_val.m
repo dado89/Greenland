@@ -40,7 +40,7 @@ for j=1:n
     y=y_full(ind);
     h=H_full(j,:);  
     
-    % Formulas for emulation
+    % Formulas for emulation (same as in emul.m)
     A = Corr_fun(X, X, d, 0, cor_fun);
     A = A + nu*eye(size(A));
     K = H'/A; B = K*H; b = B\(K*y);
