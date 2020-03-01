@@ -25,10 +25,6 @@
 % OUTPUT
 % - resp: nx1 vector, with either density values or number of st.devs.
 
-% NOTE: uncomment the lines starting with '%%%' if just the difference
-% between emulated prediction and real value is to be considered as
-% goodness of fit measure.
-
 function resp = cross_val(d, nu, X_full, y_full, cor_fun, method)
 
 n=size(X_full,1);
