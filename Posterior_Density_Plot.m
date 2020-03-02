@@ -4,6 +4,8 @@
 %%% .fig images. In the second part, these images are loaded within a for   %%%
 %%% loop, where they are inserted as subpanels of the main figure; on the   %%% 
 %%% diagonal, the PCs are drawn.                                            %%%
+%%% The script is particularly long, since it is in control of a high       %%%
+%%% number of graphical details of the final picture.                       %%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -58,8 +60,14 @@ cm=col_map_fun();
 cm=flipud(col_map_fun());
 cm=cm(2:end,:);
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%                                                                                   %%%%
+%%%%                 FIRST PART: CREATE AND STORE SINGLE PLOTS                         %%%%
+%%%%                                                                                   %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% FIGURE Cx=2, Cy=1
+
+%% FIGURE 1: Cx=2, Cy=1
 v1=[1,4]/100;
 v2=[2,5,8]/100;
 
@@ -97,8 +105,10 @@ t=text(-240, -180, '8', 'Color', text_col_2); t.FontSize=font_sz; t.FontName=fon
 
 savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% FIGURE Cx=1, Cy=2
+
+%% FIGURE 2: Cx=1, Cy=2
 v1=[2,4]/100;
 v2=[3,6,9]/100;
 
@@ -136,8 +146,10 @@ t=text(-200, 200, '9', 'Color', text_col_2); t.FontSize=font_sz; t.FontName=font
 
 savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% FIGURE Cx=3, Cy=1
+
+%% FIGURE 3: Cx=3, Cy=1
 v1=[1,2]/100;
 v2=[2,6,10]/100;
 
@@ -175,11 +187,10 @@ t=text( -10, -260, '10', 'Color', text_col_2); t.FontSize=font_sz; t.FontName=fo
 
 savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
-%% FIGURE Cx=1, Cy=3
+%% FIGURE 4: Cx=1, Cy=3
 v1=[1,2]/100;
 v2=[4,8,12]/100;
 
@@ -217,8 +228,10 @@ t=text( -230, 100, '12', 'Color', text_col_2); t.FontSize=0.9*font_sz; t.FontNam
 
 savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% FIGURE Cx=3, Cy=2
+
+%% FIGURE 5: Cx=3, Cy=2
 v1=[1,3]/100;
 v2=[3,7,11]/100;
 
@@ -256,9 +269,10 @@ t=text( 200, -160, '11', 'Color', text_col_2); t.FontSize=0.9*font_sz; t.FontNam
 
 savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%% FIGURE Cx=2, Cy=3
+%% FIGURE 6: Cx=2, Cy=3
 v1=[2,4]/100;
 v2=[1,5,9]/100;
 
@@ -298,10 +312,16 @@ savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
 
 
-%% FOR loop to produce final picture
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%                                                                                   %%%%
+%%%%                 SECOND PART: FOR LOOP TO CREATE FINAL PICTURE                     %%%%
+%%%%                                                                                   %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 set(groot, 'defaultAxesTickLabelInterpreter','latex');
 
+% Graphical Parameters
 fact_space=1/25; % the bigger, the more space between plots
 scale = 1.2;     % scale factor for size of panels
 transl = [-0.04, -0.03]; % [a,b]: moves each panel of a units to the right, 
@@ -331,7 +351,7 @@ for Cy=1:n  % row index, we consider starting from below
     pcolorm(lat2, lon2, add_nan(H));
     plotm(coastlat(Greenland), coastlon(Greenland), 'k', 'LineWidth', 1.5);
     caxis([-M,M]);
-    colormap(p,redblue); %ch=colorbar;
+    colormap(p,redblue);
     th=title(['PC ', num2str(Cy)], 'FontSize', 20);
     pos=get(ax, 'Position'); 
     pos(3)=1.1*pos(3); pos(1)=pos(1)-0.01; set(ax, 'Position', pos);
@@ -420,8 +440,8 @@ for Cy=1:n  % row index, we consider starting from below
             end
         end % end of bigger if...else.
         
-    end % end for in j
-end
+    end % end for in Cx
+end  % end for in Cy
 
 
-print([str, '3x3_gray'], '-dpng'); close(hf);
+print([str, 'Posterior_Density_3x3'], '-dpng'); close(hf);
