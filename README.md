@@ -5,7 +5,7 @@ Collaboration with Dr Louise Sime - British Antarctic Surey, Cambridge (UK).
 
 
 # Slides
-Slide on the topic provided: talk given at 2018 Student reserach Conference in Statistics and Probability, Sheffield.
+Slide on the topic provided (talk given at internal PhD seminar in Leeds).
 
 ====================================================================================
 
