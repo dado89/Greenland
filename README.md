@@ -17,5 +17,5 @@ A detailed description of each piece of code is given within the latter. Here a 
 - pca_greenland.m: extracts 13 Principal Components (PCs) highlighting the regions of larger morphology variability;
 - build_shapes.m:  constructs new morphologies as affine combination of the PCs;
 - emul.m:          implements emulation on the dataset. That is, it predicts the simulator output (delta^18 O) for a number of morphologies, at a rate around 10^9 times faster (miliseconds rather than weeks) than the time needed to actually run the simulator;
-- cross_val.m:     needed to estimated the goodness of the build emulator, with fixed correlation lengths and observational variance;
+- cross_val.m:     needed to estimated the goodness of the built emulator, with fixed correlation lengths and observational variance;
 - data_match.m:    based on the emulator prediction and ice-core records, selects data-compatible Greenland Ice Sheet morphologies;
