@@ -10,7 +10,6 @@
 
 %% GENERAL VARIABLES
 
-%{
 load('Inputs.mat');
 Z=Input_par; clear Input_par;
 load('Compatibility_Variables_tight', 'fully_comp_tight');
@@ -29,7 +28,6 @@ Greenland=3977:4210;
 
 [PC, ~, ~] = pca_greenland;
 
-
 n=3;
 ind=1:30000;
 MaxVal=zeros(n,1);
@@ -37,16 +35,13 @@ for c=1:n
 MaxVal(c)=max(abs(Z(ind,c)));
 MaxVal(c)=500*floor(MaxVal(c)/500);
 end
-%}
 
 
 %% Color, Line and other settings
 
 granata=[0.64 0.08 0.18];
 gold=[0.9 0.75 0];
-N=60;
-str='../Pictures/NxN_Plots/';
-%s=[str, 'Different Colours/', func2str(col_map_fun)];
+N=60; # N^2 is the number of boxes in which each 2D cross-section is divided
 str = '/home/dario/Desktop/JGR - Earth Surface paper/Plots/3x3_Plots/Posterior_Densities/';
 
 line_col_1='r'; text_col_1='r';
@@ -63,8 +58,8 @@ cm=col_map_fun();
 cm=flipud(col_map_fun());
 cm=cm(2:end,:);
 
-%{
-%% Figure Cx=2, Cy=1
+
+%% FIGURE Cx=2, Cy=1
 v1=[1,4]/100;
 v2=[2,5,8]/100;
 
@@ -94,9 +89,7 @@ set(h, 'LineColor', line_col_2, 'LineStyle', ln_style_2, 'LineWidth', ln_width);
 scatter(335, 165, dot_sz, 'o', 'filled', 'MarkerFaceColor', line_col_1);
 scatter(240, 100, dot_sz,  'o', 'filled', 'MarkerFaceColor', line_col_2);
 
-%text(620, -200, '\fontsize{11}1', 'Color', text_col_1);
 t=text(630, -210, '1', 'Color', text_col_1); t.FontSize=font_sz; t.FontName=font;
-%t=text(470, -150, '3', 'Color', text_col_1); t.FontSize=font_sz; t.FontName=font;
 t=text(350,  -90, '4', 'Color', text_col_1); t.FontSize=font_sz; t.FontName=font;
 t=text(-270, -620, '2', 'Color', text_col_2); t.FontSize=font_sz; t.FontName=font;
 t=text(-30, -370, '5', 'Color', text_col_2); t.FontSize=font_sz; t.FontName=font;
@@ -104,10 +97,8 @@ t=text(-240, -180, '8', 'Color', text_col_2); t.FontSize=font_sz; t.FontName=fon
 
 savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
-%}
 
-%{
-%% Figure Cx=1, Cy=2
+%% FIGURE Cx=1, Cy=2
 v1=[2,4]/100;
 v2=[3,6,9]/100;
 
@@ -145,10 +136,8 @@ t=text(-200, 200, '9', 'Color', text_col_2); t.FontSize=font_sz; t.FontName=font
 
 savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
-%}
 
-%{
-%% Figure Cx=3, Cy=1
+%% FIGURE Cx=3, Cy=1
 v1=[1,2]/100;
 v2=[2,6,10]/100;
 
@@ -187,10 +176,10 @@ t=text( -10, -260, '10', 'Color', text_col_2); t.FontSize=font_sz; t.FontName=fo
 savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
 
-%}
 
-%{
-%% Figure Cx=1, Cy=3
+
+
+%% FIGURE Cx=1, Cy=3
 v1=[1,2]/100;
 v2=[4,8,12]/100;
 
@@ -228,10 +217,8 @@ t=text( -230, 100, '12', 'Color', text_col_2); t.FontSize=0.9*font_sz; t.FontNam
 
 savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
-%}
 
-%{
-%% Figure Cx=3, Cy=2
+%% FIGURE Cx=3, Cy=2
 v1=[1,3]/100;
 v2=[3,7,11]/100;
 
@@ -269,11 +256,9 @@ t=text( 200, -160, '11', 'Color', text_col_2); t.FontSize=0.9*font_sz; t.FontNam
 
 savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
-%}
 
 
-%%{
-%% Figure Cx=2, Cy=3
+%% FIGURE Cx=2, Cy=3
 v1=[2,4]/100;
 v2=[1,5,9]/100;
 
@@ -311,7 +296,6 @@ t=text( -10, 195, '9', 'Color', text_col_2); t.FontSize=font_sz; t.FontName=font
 
 savefig([str, num2str(Cx), '_' num2str(Cy)]);
 close
-%}
 
 
 %% FOR loop to produce final picture
@@ -348,8 +332,6 @@ for Cy=1:n  % row index, we consider starting from below
     plotm(coastlat(Greenland), coastlon(Greenland), 'k', 'LineWidth', 1.5);
     caxis([-M,M]);
     colormap(p,redblue); %ch=colorbar;
-    %set(ch, 'TickLength', 0.025, 'TickDirection', 'both', 'LineWidth', 1.5);
-    %set(ch, 'FontSize', 20); ch.Location='westoutside';
     th=title(['PC ', num2str(Cy)], 'FontSize', 20);
     pos=get(ax, 'Position'); 
     pos(3)=1.1*pos(3); pos(1)=pos(1)-0.01; set(ax, 'Position', pos);
@@ -443,4 +425,3 @@ end
 
 
 print([str, '3x3_gray'], '-dpng'); close(hf);
-%print([str, '3x3_gray'], '-dsvg'); close(hf);
