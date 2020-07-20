@@ -7,7 +7,7 @@ Collaboration with Dr Louise Sime - British Antarctic Surey, Cambridge (UK).
 # Slides
 Slide on the topic provided (talk given at internal PhD seminar in Leeds).
 
-====================================================================================
+============================================================================
 
 Also provided a picture (Posterior_Density_3x3.pdf) comparing prior and posterior densities for the data-compatible morphologies.
 
